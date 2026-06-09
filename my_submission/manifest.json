@@ -1,0 +1,21 @@
+{
+  "name": "mtp-g128-chanhead",
+  "description": "vLLM nightly MTP speculation stacked on the PPL-safe int4 g128-body + channel-head checkpoint. All modalities remain enabled.",
+  "dependencies": [
+    "https://wheels.vllm.ai/3e8afdf78598afc8be999a6a049be3a5fe182e48/vllm-0.22.1rc1.dev307%2Bg3e8afdf78.cu129-cp38-abi3-manylinux_2_28_x86_64.whl",
+    "transformers==5.9.0"
+  ],
+  "model_id": "google/gemma-4-E4B-it",
+  "served_model_name": "gemma-4-e4b-it",
+  "port": 8000,
+  "serve": ["python", "serve.py"],
+  "env": {
+    "MAX_MODEL_LEN": "4096",
+    "GPU_MEMORY_UTILIZATION": "0.90",
+    "MAX_NUM_BATCHED_TOKENS": "512",
+    "MAX_NUM_SEQS": "1",
+    "PERFORMANCE_MODE": "interactivity",
+    "SPECULATIVE_CONFIG": "{\"method\":\"mtp\",\"model\":\"google/gemma-4-E4B-it-assistant\",\"num_speculative_tokens\":4}",
+    "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True"
+  }
+}
